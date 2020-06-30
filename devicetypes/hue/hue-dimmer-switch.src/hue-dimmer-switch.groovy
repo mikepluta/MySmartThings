@@ -15,7 +15,7 @@
  *
  */
 metadata {
-	definition (name: "Hue Dimmer Switch", namespace: "hue-dimmer-switch.src", author: "Mike Pluta") {
+	definition (name: "Hue Dimmer Switch", namespace: "hue", author: "Mike Pluta") {
 		capability "Configuration"
 		capability "Battery"
 		capability "Refresh"
