@@ -14,58 +14,48 @@
 metadata {
 
 //    definition(name: "Alexa Dimmer Switch", namespace: "alexa", author: "mikepluta", runLocally: true, minHubCoreVersion: '000.021.00001', executeCommandsLocally: true, mnmn: "SmartThings") {
-    definition(name: "Simulated Alexa Dimmer", namespace: "alexa", author: "mikepluta") {
-        capability "Actuator"
-        capability "Contact Sensor"
-        capability "Refresh"
-        capability "Sensor"
-    	capability "Switch"
-        capability "Switch Level"
-        
+	definition(name: "Simulated Alexa Dimmer", namespace: "alexa", author: "mikepluta") {
+		capability "Actuator"
+		capability "Contact Sensor"
+		capability "Refresh"
+		capability "Sensor"
+		capability "Switch"
+		capability "Switch Level"
+
 		command "levelUp"
 		command "levelDown"
-    }
-    
-    simulator {
+	}
+
+	simulator {
 //		status "open": "contact:open", "switch:on"
 //		status "closed": "contact:closed", "switch:off"
 		status "open": "contact:open"
 		status "closed": "contact:closed"
 	}
 
-    // tiles {
-    //     standardTile("switch", "device.switch", width: 2, height: 2, canChangeIcon: true) {
-    //         state "off", label: '${currentValue}', action: "switch.on", icon: "st.switches.switch.off", backgroundColor: "#ffffff"
-    //         state "on", label: '${currentValue}', action: "switch.off", icon: "st.switches.switch.on", backgroundColor: "#00A0DC"
-    //     }
-    //     main "switch"
-    //     details(["switch"])
-    // }
-    
-    // from dimmer....
-    tiles(scale: 2) {
+	tiles(scale: 2) {
 		multiAttributeTile(name: "switchTile", type: "generic", width: 6, height: 4, canChangeIcon: true) {
 			tileAttribute("device.switch", key: "PRIMARY_CONTROL") {
-		      	attributeState "on", label: '${name}', action: "switch.off", icon: "st.switches.switch.on", backgroundColor: "#00A0DC", nextState: "turningOff"
-    			attributeState "off", label: '${name}', action: "switch.on", icon: "st.switches.switch.off", backgroundColor: "#ffffff", nextState: "turningOn"
-		      	attributeState "turningOn", label: '${name}', action: "switch.off", icon: "st.switches.switch.on", backgroundColor: "#00A0DC", nextState: "turningOff"
+				attributeState "on", label: '${name}', action: "switch.off", icon: "st.switches.switch.on", backgroundColor: "#00A0DC", nextState: "turningOff"
+				attributeState "off", label: '${name}', action: "switch.on", icon: "st.switches.switch.off", backgroundColor: "#ffffff", nextState: "turningOn"
+				attributeState "turningOn", label: '${name}', action: "switch.off", icon: "st.switches.switch.on", backgroundColor: "#00A0DC", nextState: "turningOff"
 				attributeState "turningOff", label: '${name}', action: "switch.on", icon: "st.switches.switch.off", backgroundColor: "#ffffff", nextState: "turningOn"
-        	}
-      		tileAttribute("device.level", key: "SECONDARY_CONTROL") {
-            	attributeState "level", label: 'Switch Level set to ${currentValue}'
-        	}
-        	tileAttribute("device.level", key: "SLIDER_CONTROL") {
-            	attributeState "level", action:"switch level.setLevel", defaultState: true
-        	}
+			}
+			tileAttribute("device.level", key: "SECONDARY_CONTROL") {
+				attributeState "level", label: 'Switch Level set to ${currentValue}'
+			}
+			tileAttribute("device.level", key: "SLIDER_CONTROL") {
+				attributeState "level", action:"switch level.setLevel", defaultState: true
+			}
 		}
         
 		multiAttributeTile(name: "valueTile", type: "generic", width: 6, height: 4, canChangeIcon: true) {
 			tileAttribute("device.switch", key: "PRIMARY_CONTROL") {
-		      	attributeState "on", label: '${name}', action: "switch.off", icon: "st.switches.switch.on", backgroundColor: "#00A0DC", nextState: "turningOff"
-    			attributeState "off", label: '${name}', action: "switch.on", icon: "st.switches.switch.off", backgroundColor: "#ffffff", nextState: "turningOn"
-		      	attributeState "turningOn", label: '${name}', action: "switch.off", icon: "st.switches.switch.on", backgroundColor: "#00A0DC", nextState: "turningOff"
+				attributeState "on", label: '${name}', action: "switch.off", icon: "st.switches.switch.on", backgroundColor: "#00A0DC", nextState: "turningOff"
+				attributeState "off", label: '${name}', action: "switch.on", icon: "st.switches.switch.off", backgroundColor: "#ffffff", nextState: "turningOn"
+				attributeState "turningOn", label: '${name}', action: "switch.off", icon: "st.switches.switch.on", backgroundColor: "#00A0DC", nextState: "turningOff"
 				attributeState "turningOff", label: '${name}', action: "switch.on", icon: "st.switches.switch.off", backgroundColor: "#ffffff", nextState: "turningOn"
-        	}
+			}
 			tileAttribute("device.level", key: "VALUE_CONTROL") {
 				attributeState "VALUE_UP", action: "levelUp"
 				attributeState "VALUE_DOWN", action: "levelDown"
@@ -74,17 +64,17 @@ metadata {
 
 		valueTile("levelTile", "device.level", inactiveLabel: true, height:2, width:2, decoration: "flat") {  
 			state "levelValue", label:'${currentValue}', unit:"", backgroundColor: "#53a7c0"  
-        }
-        
+		}
+
 		standardTile("refreshTile", "device.switch", inactiveLabel: false, decoration: "flat", width: 2, height: 2) {
 			state "default", label:"", action:"refresh.refresh", icon:"st.secondary.refresh"
 		}
-        
+
 		main "switchTile"
 		details(["switchTile", "valueTile", "levelTile", "refreshTile"])
 
 	}
-    
+
 }
 
 def parse(String description) {
@@ -92,45 +82,45 @@ def parse(String description) {
 
 def on() {
 	log.info "switch:on, contact:open"
-    sendEvent(name: "switch", value: "on")
-    sendEvent(name: "contact", value: "open")
+	sendEvent(name: "switch", value: "on")
+	sendEvent(name: "contact", value: "open")
 }
 
 def off() {
 	log.info "switch:off, contact:closed"
-    sendEvent(name: "switch", value: "off")
-    sendEvent(name: "contact", value: "closed")
+	sendEvent(name: "switch", value: "off")
+	sendEvent(name: "contact", value: "closed")
 }
 
 def setLevel(level) {
-    log.info "setLevel $level"
+	log.info "setLevel $level"
     
     // make sure we don't drive switches past allowed values (command will hang device waiting for it to
     // execute and never come back)
-    if (level < 0) {
-    	level = 0
-    }
+	if (level < 0) {
+		level = 0
+	}
 
-    if (level > 100) {
-    	level = 100
-    }
+	if (level > 100) {
+		level = 100
+	}
 
-    if (level == 0) { 
-    	sendEvent(name: "level", value: level)
-    	off()
-    } else {
-    	on()
-    	sendEvent(name: "level", value: level)
-    	sendEvent(name: "switch.setLevel", value: level)
-    }
+	if (level == 0) {
+		sendEvent(name: "level", value: level)
+		off()
+	} else {
+		on()
+		sendEvent(name: "level", value: level)
+		sendEvent(name: "switch.setLevel", value: level)
+	}
 }
 
 def refresh() {
-    log.info "refresh"
+	log.info "refresh"
 }
 
 def levelUp() {
-    log.info "levelUp"
+	log.info "levelUp"
 	def level = device.latestValue("level") as Integer ?: 0
 	if (level < 100) {
 		level = level + 1
@@ -139,7 +129,7 @@ def levelUp() {
 }
 
 def levelDown() {
-    log.info "levelDwn"
+	log.info "levelDwn"
 	def level = device.latestValue("level") as Integer ?: 0
 	if (level > 0) {
 		level = level - 1
