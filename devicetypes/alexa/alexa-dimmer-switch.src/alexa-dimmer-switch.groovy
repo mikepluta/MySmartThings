@@ -22,8 +22,8 @@ metadata {
     	capability "Switch"
         capability "Switch Level"
         
-//		command "levelUp"
-//		command "levelDown"
+		command "levelUp"
+		command "levelDown"
     }
     
     simulator {
@@ -57,10 +57,6 @@ metadata {
         	tileAttribute("device.level", key: "SLIDER_CONTROL") {
             	attributeState "level", action:"switch level.setLevel", defaultState: true
         	}
-//			tileAttribute("device.level", key: "VALUE_CONTROL") {
-//				attributeState "VALUE_UP", action: "levelUp"
-//				attributeState "VALUE_DOWN", action: "levelDown"
-//			}
 		}
         
 		multiAttributeTile(name: "valueTile", type: "generic", width: 6, height: 4, canChangeIcon: true) {
@@ -134,6 +130,7 @@ def refresh() {
 }
 
 def levelUp() {
+    log.info "levelUp"
 	def level = device.latestValue("level") as Integer ?: 0
 	if (level < 100) {
 		level = level + 1
@@ -142,6 +139,7 @@ def levelUp() {
 }
 
 def levelDown() {
+    log.info "levelDwn"
 	def level = device.latestValue("level") as Integer ?: 0
 	if (level > 0) {
 		level = level - 1
