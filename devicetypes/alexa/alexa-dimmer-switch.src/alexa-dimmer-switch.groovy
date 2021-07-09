@@ -13,8 +13,8 @@
  */
 metadata {
 
-    definition (name: "Alexa Dimmer Switch", namespace: "alexa", author: "mikepluta") {
-        capability "Switch"
+    definition(name: "Alexa Dimmer Switch", namespace: "alexa", author: "mikepluta", runLocally: true, minHubCoreVersion: '000.021.00001', executeCommandsLocally: true, mnmn: "SmartThings") {
+    	capability "Switch"
         capability "Switch Level"
         capability "Sensor"
         capability "Contact Sensor"
