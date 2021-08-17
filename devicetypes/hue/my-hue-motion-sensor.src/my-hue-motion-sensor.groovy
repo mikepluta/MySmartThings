@@ -28,7 +28,7 @@ metadata {
 					author: "Bogdan Alexe, Mike Pluta",
 					runLocally: true,
 					executeCommandsLocally: true,
-					mnmn: "SmartThings",
+					mnmn: "SmartThingsCommunity",
 					vid: "generic-motion-4",
 					ocfDeviceType: "x.com.st.d.sensor.motion"	) {
 																		capability "Motion Sensor"
